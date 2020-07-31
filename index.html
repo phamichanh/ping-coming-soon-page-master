@@ -5,30 +5,125 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
+  <!-- Bootstrap Script -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+  <!-- Google fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/index.css">
+
   <title>Frontend Mentor | Ping coming soon page</title>
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
 </head>
 <body>
+  <section id="ping-section">
+    <div class="container">
+      <div class="row" id="header">
+        <div class="col-sm-12">
+          <img id="logo" src="images/logo.svg" alt="logo ping" />
+          <h1><span class="heading-big">We are launching</span> <span class="heading-bold">soon!</span></h1>
+          <p>Subscribe and get notified</p>
+        </div>
+      </div>
 
-  We are launching soon!
+      <div class="row" id="register-box">
+        <div class="col-md-8">
+          <input id="input-email" class="normal-input" type="email" name="emailAddress" placeholder="Your email address..." autocomplete="off">
+          <p id="error-message" class="msg-hidden">Please provide a valid email address</p>
+        </div>
+        <div class="col-md-4">
+          <button id="btn-notify" type="button" name="button">Notify Me</button>
+        </div>
+      </div>
 
-  Subscribe and get notified
+      <div class="row" id="dashboard-box">
+        <div class="col-sm-12">
+          <img src="images/illustration-dashboard.png" alt="illustration dashboard" />
+        </div>
+      </div>
 
-  Notify Me
-
-  &copy; Copyright Ping. All rights reserved.
+      <div class="row" id="footer">
+        <div class="col-sm-12">
+          <ul>
+            <li><a id="share-facebook"></a></li>
+            <li><a id="share-twitter"></a></li>
+            <li><a id="share-instagram"></a></li>
+          </ul>
+        </div>
+        <div class="col-sm-12">
+          <p>&copy; Copyright Ping. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <footer>
     <p class="attribution">
-      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-      Coded by <a href="#">Your Name Here</a>.
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+      Coded by <a href="#">Pham Ich Anh</a>.
     </p>
   </footer>
+  <script>
+
+  document.getElementById("btn-notify").addEventListener('click', event => {
+    notifyRegister();
+  });
+
+  function notifyRegister() {
+    var errorText = " cannot be empty";
+
+    if(!chkInput(document.getElementById("input-email").value)) {
+      showError("input-email", "error-message", "Email Address" + errorText);
+    } else if(!validateEmail(document.getElementById("input-email").value)) {
+      showError("input-email", "error-message", "Please provide a valid email address");
+    } else {
+      clearError("input-email", "error-message");
+    }
+  }
+
+
+  function showError(inputID ,errorMsgID, errorText) {
+    var inputObj = document.getElementById(inputID);
+    inputObj.classList.remove("normal-input");
+    inputObj.classList.add("error-input");
+
+    var msgObj = document.getElementById(errorMsgID);
+    msgObj.classList.remove("msg-hidden");
+    msgObj.classList.add("msg-show");
+    msgObj.textContent = errorText;
+  }
+
+  function clearError(inputID, errorMsgID) {
+    var inputObj = document.getElementById(inputID);
+    inputObj.classList.remove("error-input");
+    inputObj.classList.add("normal-input");
+
+    var msgObj = document.getElementById(errorMsgID);
+    msgObj.classList.remove("msg-show");
+    msgObj.classList.add("msg-hidden");
+  }
+
+  function chkInput(inputText) {
+    if(inputText.trim() == "") {
+      return false;
+    }
+    return true;
+  }
+
+  function validateEmail(inputText)
+  {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(inputText.match(mailformat))
+    {
+      return true;
+    }
+    return false;
+  }
+  </script>
 </body>
 </html>
