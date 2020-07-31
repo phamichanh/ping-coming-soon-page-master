@@ -172,7 +172,7 @@ body {
     margin-top: 20px;
   }
 
-  .error-message {
+  #error-message {
     text-align: center;
     margin: 10px 0px 0px 00px;
   }
